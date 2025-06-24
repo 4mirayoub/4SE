@@ -67,29 +67,25 @@ public class SpeciesQueue<T extends Comparable> implements Iterable<T> , Cloneab
     public boolean isEmpty() {
         return this.size == 0;
     }
-
     @Override
     public SpeciesQueue<T> clone() {
         SpeciesQueue<T> clonedQueue = new SpeciesQueue<>();
-
         for (int i = 0; i < size; i++) {
-            T item = queue[i];
+            try {
+                T item = queue[i];
+                if (item == null) continue;
+                // Deep clone via reflection
+                T clonedItem = (T) item.getClass().getMethod("clone").invoke(item);
+                clonedQueue.add(clonedItem);
 
-            if (item instanceof Cloneable) {
-                try {
-                    // נניח שלמחלקות יש clone() שמחזיר T
-                    T clonedItem = (T) item.getClass().getMethod("clone").invoke(item);
-                    clonedQueue.add(clonedItem);
-                } catch (Exception e) {
-                    return null;
-                }
-            } else {
-                return null; // אם איבר לא מממש Cloneable - אסור להכניס
+            } catch (Exception e) {
+                // Skip this item or throw an exception if needed
+                System.err.println("Failed to clone item: " + e.getMessage());
             }
         }
-
         return clonedQueue;
     }
+
     @Override
     public Iterator<T> iterator() {
         return new SpeciesQueueIterator();

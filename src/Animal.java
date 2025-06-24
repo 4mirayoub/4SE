@@ -1,4 +1,4 @@
-public  abstract class Animal implements Comparable<Animal>  {
+public  abstract class Animal implements Comparable<Animal> ,Cloneable {
 
     protected  String species;
     protected int dominance;
@@ -13,9 +13,17 @@ public  abstract class Animal implements Comparable<Animal>  {
     public String toString() {
         return this.species;
     }
-
+    @Override
+    public Animal clone() {
+        try {
+            return (Animal) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
     public int compareTo(Animal other) {
         if(other == null)return this.dominance;
         return this.dominance - other.getDominance();
     }
+
 }
