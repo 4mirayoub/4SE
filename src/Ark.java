@@ -8,14 +8,14 @@ public class Ark {
 
     public void add(Animal animal) {
         queue.add(animal);
-    }
+    }//adding function
 
-    public void enterToArk() {
+    public void enterToArk() {//entering animals to the ark
         Animal animal = queue.remove();
         System.out.println("A " + animal.getSpecies() + " entered the ark");
     }
 
-    public void enterAllToArk() {
+    public void enterAllToArk() {//enter all the animals to the ark
         int size = queue.size();
         while (size > 0) {
             enterToArk();
@@ -23,7 +23,7 @@ public class Ark {
         }
     }
 
-    public void showQueue() {
+    public void showQueue() {//Prints the names of the animals in the array in the order of the indexes in the array (from 0 to the end)
         Iterator<Animal> iterator = queue.iterator();
         while (iterator.hasNext()) {
             Animal animal = iterator.next();

@@ -5,12 +5,12 @@ public class SpeciesQueue<T extends Comparable> implements Iterable<T> , Cloneab
     private T[] queue;
     private int size;
 
-    public SpeciesQueue() {
+    public SpeciesQueue() {//constructor
         queue = (T[]) new Animal[10]; // start with capacity 10
         size = 0;
     }
 
-    private void resize() {
+    private void resize() {//Doubles the size of the array each time you reach the end.
         T[] newQueue = (T[]) new Animal[queue.length * 2];
         for (int i = 0; i < size; i++) {
             newQueue[i] = queue[i];
@@ -18,10 +18,10 @@ public class SpeciesQueue<T extends Comparable> implements Iterable<T> , Cloneab
         queue = newQueue;
     }
 
-    public void add(T animal) {
+    public void add(T animal) {//Adds elements to an array according to its dominance
         T saveAnimal;
         int i;
-        if (animal == null) throw new InvalidInputException();
+        if (animal == null) throw new InvalidInputException();//catch error
         if (size == queue.length) {
             resize();
         }
@@ -46,39 +46,39 @@ public class SpeciesQueue<T extends Comparable> implements Iterable<T> , Cloneab
         size++;
     }
 
-    public T remove() {
+    public T remove() {//removing function
         T saveAnimal;
-        if (size <= 0) throw new EmptyQueueException();
+        if (size <= 0) throw new EmptyQueueException();//catch error
         saveAnimal = queue[0];
-        for (int i = 0; i < size - 1; i++) queue[i] = queue[i + 1];
+        for (int i = 0; i < size - 1; i++) queue[i] = queue[i + 1];//removing
         size--;
         return saveAnimal;
     }
 
-    public T peek() {
-        if (size <= 0) throw new EmptyQueueException();
+    public T peek() {//returning the head of an array without removing it
+        if (size <= 0) throw new EmptyQueueException();//catch error
         return queue[0];
     }
 
     public int size() {
         return this.size;
-    }
+    }//getsize of an array
 
     public boolean isEmpty() {
         return this.size == 0;
-    }
+    }//checking if the array is empty
     @Override
-    public SpeciesQueue<T> clone() {
+    public SpeciesQueue<T> clone() {//cloning function
         SpeciesQueue<T> clonedQueue = new SpeciesQueue<>();
         for (int i = 0; i < size; i++) {
-            try {
+            try {//use of try catch
                 T item = queue[i];
                 if (item == null) continue;
-                T clonedItem = (T) item.getClass().getMethod("clone").invoke(item);
+                T clonedItem = (T) item.getClass().getMethod("clone").invoke(item);//use the invoke and getmethod as ordered
                 clonedQueue.add(clonedItem);
 
-            } catch (Exception e) {
-                System.err.println("Failed to clone item: " + e.getMessage());
+            } catch (Exception e) {//catch error and return null
+                return null;
             }
         }
         return clonedQueue;
@@ -87,7 +87,7 @@ public class SpeciesQueue<T extends Comparable> implements Iterable<T> , Cloneab
     @Override
     public Iterator<T> iterator() {
         return new SpeciesQueueIterator();
-    }
+    }// iterator function
 
     class SpeciesQueueIterator implements Iterator<T> {
         private int index = 0;

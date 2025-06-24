@@ -14,16 +14,16 @@ public  abstract class Animal implements Comparable<Animal> ,Cloneable {
         return this.species;
     }
     @Override
-    public Animal clone() {
+    public Animal clone() { //Copy function
         try {
-            return (Animal) super.clone();
-        } catch (CloneNotSupportedException e) {
+            return (Animal) super.clone();//Covariant Return Type
+        } catch (CloneNotSupportedException e) {// catch error
             return null;
         }
     }
     public int compareTo(Animal other) {
         if(other == null)return this.dominance;
-        return this.dominance - other.getDominance();
+        return this.dominance - other.getDominance();//The difference between two objects
     }
 
 }
