@@ -74,12 +74,10 @@ public class SpeciesQueue<T extends Comparable> implements Iterable<T> , Cloneab
             try {
                 T item = queue[i];
                 if (item == null) continue;
-                // Deep clone via reflection
                 T clonedItem = (T) item.getClass().getMethod("clone").invoke(item);
                 clonedQueue.add(clonedItem);
 
             } catch (Exception e) {
-                // Skip this item or throw an exception if needed
                 System.err.println("Failed to clone item: " + e.getMessage());
             }
         }

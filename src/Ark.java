@@ -33,6 +33,6 @@ public class Ark {
             }
         }
 
-        System.out.println(); // move to next line after the list
+        System.out.println();
     }
 }
