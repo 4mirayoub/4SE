@@ -1,5 +1,5 @@
+// Abstract base class for all animal types, supports compare and clone
 public  abstract class Animal implements Comparable<Animal> ,Cloneable {
-
     protected  String species;
     protected int dominance;
 
@@ -14,7 +14,7 @@ public  abstract class Animal implements Comparable<Animal> ,Cloneable {
         return this.species;
     }
     @Override
-    public Animal clone() { //Copy function
+    public Animal clone() {//Copy function
         try {
             return (Animal) super.clone();//Covariant Return Type
         } catch (CloneNotSupportedException e) {// catch error
